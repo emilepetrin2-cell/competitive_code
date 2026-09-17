@@ -1,0 +1,34 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main(){
+    freopen("blocks.in", "r", stdin);
+    freopen("blocks.out", "w", stdout);
+    int n;
+    cin>>n;
+    vector<int> lettre_max(26);
+    for(int i = 0; i < n; i++){
+        string mot_1, mot_2;
+        cin>>mot_1>>mot_2;
+         vector<int> lettre1(26);
+         vector<int> lettre2(26);
+        for(char c : mot_1){
+            lettre1[c - 'a']++;
+        }
+        for(char c : mot_2){
+            lettre2[c - 'a']++;
+        }
+        for(int i = 0; i < 26; i++){
+        lettre_max[i] += max(lettre1[i], lettre2[i]);
+    }     
+
+    }
+    
+    for(int i = 0; i < 26; i++){
+            cout<<lettre_max[i]<<"\n";
+        }
+    return 0;
+}
