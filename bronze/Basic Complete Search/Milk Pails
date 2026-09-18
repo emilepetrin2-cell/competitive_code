@@ -1,0 +1,23 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main(){
+    freopen("pails.in", "r", stdin);
+    freopen("pails.out", "w", stdout);
+    int X, Y, M;
+    cin>>X>>Y>>M;
+    int nombre_max = 0;
+    for(int nb_x = 0; X * nb_x <= M; nb_x++){
+        for(int nb_y = 0; X * nb_x + Y * nb_y <= M; nb_y++){
+            int total = X * nb_x + Y * nb_y;
+            nombre_max = max(nombre_max, total);
+
+        }
+    }
+    cout<<nombre_max;
+    return 0;
+}
+
