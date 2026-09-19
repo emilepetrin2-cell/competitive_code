@@ -1,0 +1,43 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main(){
+    freopen("gymnastics.in", "r", stdin);
+    freopen("gymnastics.out", "w", stdout);
+    int n, k;
+    cin>>k>>n;
+    int reponse = 0;
+    vector<vector<int>> position(k, vector<int>(n + 1));
+    for (int i = 0; i < k; i++)
+        for(int j = 0; j < n; j++){
+            int vache;
+            cin>>vache;
+            position[i][vache] = j;
+     }
+
+     for(int a = 1; a <= n; a++){
+        for(int b = 1; b <= n; b ++){
+            if(a == b){
+                continue;
+            }
+            bool devant = true;
+            for(int i = 0; i < k; i++){
+                if(position[i][a] > position[i][b]){
+                    devant = false;
+                    break;
+                }
+            }
+            if(devant){
+                reponse += 1;
+            }
+        
+        }
+     }
+
+    cout<<reponse<<"\n";
+    return 0;
+}
+    
