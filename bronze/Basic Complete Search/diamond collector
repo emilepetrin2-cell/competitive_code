@@ -1,0 +1,30 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main(){
+    freopen("diamond.in", "r", stdin);
+    freopen("diamond.out", "w", stdout);
+    int n,k;
+    cin>>n>>k;
+    int reponse = 0;
+    vector<int> taille(n);
+    for(int i = 0; i < n; i++){
+        cin>>taille[i];
+    }
+    for(int i = 0; i < n; i++){
+        int pierre = taille[i];
+        int maximum = 0;
+        for(int j = 0; j < n; j++){
+            if (taille[j] >= pierre && taille[j] <= pierre + k) {
+                maximum += 1;
+            }
+        }
+        reponse = max(reponse, maximum);
+    }
+    cout<<reponse<<"\n";
+    return 0;
+}
+    
