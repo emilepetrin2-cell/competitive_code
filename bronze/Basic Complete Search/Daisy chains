@@ -1,0 +1,35 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main(){
+    int n;
+    cin>>n;
+    int reponse = 0;
+    vector<int> petal(n);
+    for(int i = 0; i < n; i++){
+        cin>>petal[i];
+    }
+    for(int i = 0; i < n; i++){
+        int somme = 0;
+        vector<bool> vue(1001, false);
+        for(int j = i; j < n; j++){
+            somme += petal[j];
+            vue[petal[j]] = true;
+            int nombre = (j - i)+ 1;
+            if(somme%nombre == 0 ){
+                int moyenne = somme/nombre;
+                if(vue[moyenne]){
+                    reponse += 1;
+                }
+            }
+
+
+
+        }
+    }
+    cout<<reponse;
+}
+    
