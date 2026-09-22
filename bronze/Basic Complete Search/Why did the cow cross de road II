@@ -1,0 +1,37 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main(){
+    freopen("circlecross.in", "r", stdin);
+    freopen("circlecross.out", "w", stdout);
+    string alphabet;
+    vector<int> debut(26, -1);
+    vector<int> fin(26, -1);
+    int reponse = 0;
+    cin>>alphabet;
+    for(int i = 0; i < size(alphabet); i++){
+        int id = alphabet[i] -'A';
+        if(debut[id] == -1){
+            debut[id] = i;
+        }else{
+            fin[id] =i;
+        }
+    }
+    for(int i = 0; i < 26; i++){
+        for(int j = i + 1; j < 26; j++){
+            int a1 = debut[i];
+            int b1 = debut[j];
+            int a2 = fin[i];
+            int b2 = fin[j];
+            if ((a1 < b1 && b1 < a2 && a2 < b2) || (b1 < a1 && a1 < b2 && b2< a2)){
+                reponse += 1;
+            }
+
+        }
+    }
+    cout<<reponse<<"\n";
+    return 0;
+}
