@@ -1,0 +1,41 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+
+int main(){
+    freopen("balancing.in", "r", stdin);
+    freopen("balancing.out", "w", stdout);
+    int n,b;
+    int reponse = n;
+    cin>>n>>b;
+    vector<int> x(n), y(n);
+    for(int i = 0; i < n; i++){
+        cin>>x[i]>>y[i];
+    }
+    for(int i = 0; i < n; i++){
+        int a = x[i] + 1;
+        for(int j = 0; j < n; j++){
+            int b = y[j] +1;
+            int quadrant1 = 0, quadrant2 = 0, quadrant3 = 0, quadrant4 = 0;
+            for(int k = 0; k < n; k++){
+                if(x[k] > a && y[k] > b){
+                    quadrant1 +=1;
+                }else if(x[k] < a && y[k] > b){
+                    quadrant2 +=1;
+                }else if(x[k] < a && y[k] < b){
+                    quadrant3 +=1;
+                }else if(x[k] > a && y[k] < b){
+                    quadrant4 +=1;
+                }
+            }
+        int quadrant_max = max({quadrant1, quadrant2, quadrant3, quadrant4});
+        reponse = min(quadrant_max, reponse);
+        }
+    }
+    cout<<reponse;
+    return 0;
+}
+    
