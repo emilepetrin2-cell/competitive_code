@@ -1,0 +1,47 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+
+int main(){
+    freopen("guess.in", "r", stdin);
+    freopen("guess.out", "w", stdout);
+    int n;
+    cin>>n;
+    int reponse = 0;
+    vector<vector<string>> caracteristique(n);
+    for(int i = 0; i < n; i++){
+    string nom;
+    int k;
+    cin >> nom >> k;
+    for(int j = 0; j < k; j++){
+        string trait;
+        cin >> trait;
+        caracteristique[i].push_back(trait);
+    }
+}
+    for(int a = 0; a < n; a++){
+        for(int b = a + 1; b < n; b++){
+            if(a == b){
+                continue;
+            }
+            int commun = 0;
+            for(int k = 0; k < caracteristique[a].size(); k++){
+                for(int j = 0; j < caracteristique[b].size(); j++){
+                    if(caracteristique[a][k] == caracteristique[b][j] ){
+                        commun += 1;
+                    }
+                }
+            }
+            reponse = max(commun, reponse);
+        }
+
+    }
+    reponse += 1;
+    cout<<reponse;
+
+    return 0;
+}
+    
