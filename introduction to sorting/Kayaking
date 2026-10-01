@@ -1,0 +1,39 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <set>
+using namespace std;
+
+
+int main(){
+    int n;
+    cin>>n;
+    vector<int> nombre(n * 2);
+    int rep = 1000000;
+    for(int i = 0; i < 2 * n; i++){
+        cin>>nombre[i];
+    }
+    sort(nombre.begin(), nombre.end());
+    for (int i = 0; i < nombre.size(); i++){
+        for(int j = 0; j < nombre.size(); j++){
+            if(i == j){
+                continue;
+            }
+            vector<int> temporaire;
+            int total = 0;
+            for(int k = 0; k < nombre.size(); k++){
+                 if(k != i && k != j){
+                    temporaire.push_back(nombre[k]);
+             }
+          }
+            for(int z = 0; z < temporaire.size(); z += 2){
+                total  += temporaire[z + 1] - temporaire[z];
+                
+            }
+        rep = min(rep, total);
+        }
+    }
+    cout<<rep;
+}
+    
