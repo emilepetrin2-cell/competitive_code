@@ -1,0 +1,32 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <set>
+using namespace std;
+
+
+int main(){
+    freopen("cowqueue.in", "r", stdin);
+    freopen("cowqueue.out", "w", stdout);
+    int n;
+    cin>>n;
+    vector<pair<int, int>> vaches(n);
+    for (int i = 0; i < n; i++){
+        cin >> vaches[i].first >> vaches[i].second;
+    }
+    sort(vaches.begin(), vaches.end());
+    int temps = 0;
+    for(int i = 0; i < n; i++){
+        if(vaches[i].first > temps){
+            temps = vaches[i].first;
+            
+        }
+        temps += vaches[i].second;
+
+    }
+    cout << temps <<endl;
+
+    
+}
+    
