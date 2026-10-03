@@ -1,0 +1,35 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <set>
+#include <map>
+#include <unordered_map>
+using namespace std;
+
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    
+    int q;
+    cin>>q;
+    map<long long, long long>  donnee;
+    while (q--){
+        int type;
+        cin >> type;
+        if (type == 0){
+            long long k, v;
+            cin >> k >> v;
+            donnee[k] = v;
+        }else if(type == 1){
+            long long k;
+            cin >> k;
+            cout<<donnee[k]<< "\n";
+        }
+    }
+    return 0;
+
+    
+}
+    
