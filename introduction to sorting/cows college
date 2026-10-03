@@ -1,0 +1,36 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <set>
+using namespace std;
+
+
+int main(){
+    int n;
+    cin>>n;
+    vector<long long> prix_max(n);
+    for(int i = 0; i < n; i++){
+        cin>>prix_max[i];
+    }
+    long long reponse1 = 0;
+    long long reponse2 = 0;
+    
+    sort(prix_max.begin(), prix_max.end());
+    int maximum = prix_max.size();
+    for(int i = 0; i < n; i++){
+        long long prix = prix_max[i];
+        long long nombre = n - i;
+        long long total = prix * nombre;
+        if (total > reponse2){
+            reponse2 = total;
+            reponse1 = prix;
+        }
+
+    }
+    cout<< reponse2 << " "<< reponse1 <<endl;
+    
+
+    
+}
+    
