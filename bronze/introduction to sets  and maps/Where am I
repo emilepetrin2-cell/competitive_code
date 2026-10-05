@@ -1,0 +1,42 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <set>
+#include <map>
+#include <unordered_map>
+using namespace std;
+
+
+int main(){
+    freopen("whereami.in", "r", stdin);
+    freopen("whereami.out", "w", stdout);
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int n;
+    cin>>n;
+    string mot;
+    cin>>mot;
+
+    
+    for  (int k = 1; k < n; k++){
+        set<string> vue;
+        bool doublon = false;
+        for(int i = 0; i <= n - k; i++){
+            string sub = mot.substr(i, k);
+                if(vue.count(sub)){
+                    doublon = true;
+                    break;
+                }
+                vue.insert(sub);
+            }
+        
+        if (!doublon) {
+            cout << k << "\n";
+            break;
+        }
+    }
+
+    
+}
+    
