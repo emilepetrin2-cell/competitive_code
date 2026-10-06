@@ -1,0 +1,45 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <set>
+#include <map>
+#include <unordered_map>
+using namespace std;
+
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    
+    int n,m;
+    cin>>n>>m;
+    multiset<int> billet;
+    vector<int> client(m);
+    for(int i = 0; i < n; i++){
+        int nombre;
+        cin>>nombre;
+        billet.insert(nombre);
+    }
+    for(int i = 0; i < m; i++){
+        cin>>client[i];
+    }
+    for(int i = 0; i < m; i++){
+        int max = client[i];
+        auto it = billet.upper_bound(max);
+        if(it == billet.begin()){
+            cout << -1 <<"\n";
+        }else{
+            --it;
+            cout << *it << "\n";
+            billet.erase(it);
+        }
+    
+    
+    }
+
+    
+
+    
+}
+    
