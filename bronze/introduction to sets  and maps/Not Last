@@ -1,0 +1,75 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <set>
+#include <map>
+#include <unordered_map>
+using namespace std;
+
+
+int main(){
+    freopen("notlast.in", "r", stdin);
+    freopen("notlast.out", "w", stdout);
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    
+    int n;
+    cin>>n;
+    map<string, int> vaches;
+    vector<string> noms = {"Bessie", "Elsie", "Daisy", "Gertie", "Annabelle", "Maggie", "Henrietta"};
+    for (string s : noms) {
+        vaches[s] = 0;
+    }
+    for(int i = 0; i< n; i++){
+        string nom;
+        int traite;
+        cin>>nom>>traite;
+        if(vaches.count(nom)){
+            vaches[nom] = vaches[nom] + traite;
+        }else{
+            vaches[nom] = traite;
+        }
+    }
+    vector<pair<int,string>> trier;
+    for(auto p: vaches){
+        trier.push_back({p.second, p.first});
+    }
+    sort(trier.begin(), trier.end());
+    int m = trier[0].first;
+    int valeur = -1;
+    int valeur2 = -1;
+    for(int i = 1; i < trier.size(); i++){
+        if(trier[i].first > m){
+            valeur = trier[i].first;
+            valeur2 = i;
+            break;
+        }else{
+            continue;
+
+        }
+    }
+    if(valeur == -1){
+        cout << "Tie\n";
+        return 0;
+    }
+    int compteur = 0;
+    for(int i = 0; i < trier.size(); i++){
+        if(trier[i].first == valeur){
+            compteur += 1;
+        }
+    }
+    if(compteur == 1){
+        cout<<trier[valeur2].second;
+    }else{
+        cout<<"Tie";
+    }
+
+
+    return 0;
+
+
+    
+
+    
+}
