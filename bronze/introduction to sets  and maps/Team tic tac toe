@@ -1,0 +1,58 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <set>
+#include <map>
+#include <unordered_map>
+using namespace std;
+
+
+int main(){
+    freopen("tttt.in", "r", stdin);
+    freopen("tttt.out", "w", stdout);
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    vector<string> g(3);
+    for (int i = 0; i < 3; i++){
+        cin >> g[i];
+    }
+    char allignement[8][3]{
+        {g[0][0], g[0][1], g[0][2]},
+        {g[1][0], g[1][1], g[1][2]},
+        {g[2][0], g[2][1], g[2][2]},
+        {g[0][0], g[1][0], g[2][0]},
+        {g[0][1], g[1][1], g[2][1]},
+        {g[0][2], g[1][2], g[2][2]},
+        {g[0][2], g[1][1], g[2][0]},
+        {g[0][0], g[1][1], g[2][2]},
+    };
+    set<char>seul;
+    set<pair<char,char>>duo;
+    for(int i = 0; i < 8; i++){
+        char a = allignement[i][0];
+        char b = allignement[i][1];
+        char c = allignement[i][2];
+    
+         if(a == b && b == c){
+            seul.insert(a);
+         }else if(a == b || a == c || b == c){
+            duo.insert({min({a,b,c}), max({a,b,c})});
+         }
+    
+    
+
+         
+    }
+    cout<<seul.size()<<"\n";
+    cout<<duo.size()<<"\n";
+
+    
+    
+    
+
+
+    
+
+    
+}
