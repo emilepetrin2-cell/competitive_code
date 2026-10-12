@@ -1,0 +1,18 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+    long long a,b,x,y;
+    cin>> a >> b >> x >> y;
+    long long largeur1 = x + a;
+    long long hauteur1 = max(b, y);
+    long long largeur2 = max(x,a);
+    long long hauteur2 = b + y;
+    long long perimetre1 = 2 * largeur1 + 2 * hauteur1;
+    long long perimetre2 = 2 * largeur2 + 2 * hauteur2;
+    
+    cout<<min(perimetre1, perimetre2)<<"\n";
+    return 0;
+    
+}
