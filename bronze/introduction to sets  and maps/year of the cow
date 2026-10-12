@@ -1,0 +1,94 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <set>
+#include <map>
+#include <unordered_map>
+using namespace std;
+
+int traduire (string nom){
+    if(nom == "Ox"){
+        return 1;
+    }else if(nom == "Tiger"){
+        return 2;
+    }else if(nom == "Rabbit"){
+        return 3;
+    }else if(nom == "Dragon"){
+        return 4;
+    }else if(nom == "Snake"){
+        return 5;
+    }else if(nom == "Horse"){
+        return 6;
+    }else if(nom == "Goat"){
+        return 7;
+    }else if(nom == "Monkey"){
+        return 8;
+    }else if(nom == "Rooster"){
+        return 9;
+    }else if(nom == "Dog"){
+        return 10;
+    }else if(nom == "Pig"){
+        return 11;
+    }else if(nom == "Rat"){
+        return 12;
+    }
+};
+
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    map<string, int> vache;
+    map<string, int> signe_de;
+    int n;
+    cin>>n;
+    string mot;
+    vector<vector<string>> phrases(n, vector<string>(8));
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < 8; j++) {
+            std::cin >> mot;
+            phrases[i][j] = mot; 
+         }
+    }
+    vache["Bessie"] = 0;
+    signe_de["Bessie"] = 1;
+
+    for(int i = 0; i < n; i++){
+        
+
+        string nom = phrases[i][0];
+        string temps = phrases[i][3];
+        int annee = traduire(phrases[i][4]);
+        string comparee = phrases[i][7];
+        int annee_courante = vache[comparee];
+        int signe_courant = signe_de[comparee];
+
+        if (temps == "previous") {
+            annee_courante--;
+            if (signe_courant == 1) signe_courant = 12;
+            else signe_courant--;
+
+            while (signe_courant != annee) {
+                annee_courante--;
+                if (signe_courant == 1) signe_courant = 12;
+                else signe_courant--;
+            }
+        } else if (temps == "next") {
+            annee_courante++;
+            signe_courant = (signe_courant % 12) + 1;
+
+            while (signe_courant != annee) {
+                annee_courante++;
+                signe_courant = (signe_courant % 12) + 1;
+            }
+        }
+
+        vache[nom] = annee_courante;
+        signe_de[nom] = annee;
+    }
+
+    cout << abs(vache["Elsie"]) << "\n";
+    return 0;
+}
+    
