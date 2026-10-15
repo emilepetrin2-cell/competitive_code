@@ -1,0 +1,53 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <set>
+#include <map>
+#include <unordered_map>
+#include <unordered_set>
+using namespace std;
+
+
+
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);   
+    freopen("revegetate.in", "r", stdin);
+    freopen("revegetate.out", "w", stdout);
+    int n,m;
+    cin>>n>>m;
+    vector<vector<int>> champ(n + 1);
+    for(int i = 0; i < m ; i++){
+        int un, deux;
+        cin>>un>>deux;
+        champ[un].push_back(deux);
+        champ[deux].push_back(un);
+
+    }
+    vector<int> final(n +1);
+    for(int i = 1; i < n + 1; i++){
+        for(int j = 1; j < 5; j++){
+            bool deja = false;
+            for(int voisin: champ[i]){
+                if(final[voisin] == j){
+                    deja = true;
+                    break;
+                }
+            }
+            if(!deja == true){
+                final[i] = j;
+                break;
+            }
+        }
+    }
+    for(int i = 1; i <= n; i++){
+        cout<<final[i];
+    }
+    
+    
+    
+    
+    return 0;
+}
