@@ -1,0 +1,67 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <set>
+#include <map>
+#include <unordered_map>
+#include <unordered_set>
+using namespace std;
+
+
+
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);   
+    freopen("hoofball.in", "r", stdin);
+    freopen("hoofball.out", "w", stdout);
+    int n;
+    cin>>n;
+    vector<int> nombre(n);
+    for(int i = 0; i < n; i++){
+        cin>>nombre[i];
+    }
+    sort(nombre.begin(), nombre.end());
+    vector<int> lien(n);
+    for( int i = 0; i < n; i++){
+        if(i == 0){
+            lien[0] = 1;
+            continue;
+        }
+        if (i == n - 1) {
+        lien[n - 1] = n - 2;
+        continue;
+    }
+        int dist_gauche = nombre[i] - nombre[i - 1];
+        int dist_droite = nombre[i + 1] - nombre[i];
+        if (dist_gauche <= dist_droite) {
+        lien[i] = i - 1 ;
+        } else {
+        lien[i] = i + 1;
+    }
+
+
+    }
+    vector<int> entrant(n, 0);
+    for(int i = 0; i< lien.size(); i++){
+        int c = lien[i];
+        entrant[c]++;
+    }
+    int rep = 0;
+    for(int i = 0; i< n; i++){
+        if(i + 1 < n && lien[i] == i + 1 && lien[i + 1] == i && entrant[i] == 1 && entrant[i+1] == 1){
+            rep += 1;
+        }
+        if(entrant[i] == 0){
+            rep += 1;
+        }
+    }
+    cout<<rep;
+    
+    
+    
+    
+    
+    return 0;
+}
