@@ -1,0 +1,42 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <set>
+#include <map>
+#include <unordered_map>
+#include <unordered_set>
+using namespace std;
+int n;
+vector<long long> nombre(n);
+
+long long apple(int index, long long sum1, long long sum2){
+    if(index == n){
+        return abs(sum1 - sum2);
+    }
+    return min(apple(index +1, sum1 + nombre[index], sum2),
+               apple(index + 1, sum1, sum2+ nombre[index]));
+};
+
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);   
+    cin>>n;
+    nombre.resize(n);
+    
+    for(int i = 0; i< n; i++){
+        cin>>nombre[i];
+    }
+    cout << apple(0, 0, 0) << endl;
+    
+
+
+
+    
+    
+    
+    
+    
+    return 0;
+}
