@@ -1,0 +1,92 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <set>
+#include <map>
+#include <unordered_map>
+#include <unordered_set>
+using namespace std;
+int n,m;
+struct vaches{
+    int s, t, c;
+};
+struct climatiseurs{
+    int a, b, p, m;
+};
+vector<climatiseurs> climatiseur;
+vector<int> choisit;
+long long ans = 1e18;
+vector<int> v(101, 0);
+long long verifier(vector<int>& choisit){
+    vector<int> allumer(101, 0);
+    for(int i = 0; i < choisit.size(); i++){
+        if(choisit[i] == 1){
+            for(int j = climatiseur[i].a; j <= climatiseur[i].b; j++){
+                allumer[j] += climatiseur[i].p;
+            }
+        }
+    }
+    bool valide = true;
+    for(int i = 1; i < 101; i++){
+        if(allumer[i] < v[i]){
+            valide = false;
+            break;
+        }
+    }
+    if(valide){
+        long long total = 0;
+        for(int i = 0; i < choisit.size(); i++){
+            if(choisit[i] == 1){
+                total += climatiseur[i].m;
+            }
+        }
+        ans = min(ans, total);
+    }
+
+}
+void solve(int index, vector<int>& choisit){
+    if(index == m){
+        verifier(choisit);
+        return;
+    }
+
+        choisit.push_back(1);
+        solve(index + 1, choisit);
+        choisit.pop_back ();
+
+        choisit.push_back (0);
+        solve (index + 1, choisit);
+        choisit.pop_back ();
+
+}
+
+int main(){
+    cin>>n>>m;
+    climatiseur.resize(m);
+    vector<vaches> vache(n);
+    
+    for(int i = 0; i < n; i++){
+        cin>>vache[i].s;
+        cin>>vache[i].t;
+        cin>>vache[i].c;
+    }
+    
+    for(int i = 0; i < n; i++){
+        for(int j = vache[i].s; j <= vache[i].t; j++){
+            v[j] = max(v[j], vache[i].c);
+        }
+    }
+    
+    for(int i = 0; i < m; i++){
+        cin>>climatiseur[i].a;
+        cin>>climatiseur[i].b;
+        cin>>climatiseur[i].p;
+        cin>>climatiseur[i].m;
+    }
+    solve(0, choisit);
+    cout<< ans << "\n";
+    
+    
+    return 0;
+}
