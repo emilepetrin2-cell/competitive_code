@@ -1,0 +1,82 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int meilleur_resultat = 0;
+void calcul(vector<int> nombre){
+    if(nombre.size() == 1){
+        if(nombre[0] <= 24){
+        meilleur_resultat = max(nombre[0], meilleur_resultat);
+        
+    }
+    return;
+    }
+    for(int i = 0; i < nombre.size(); i++){
+        for(int j = 0; j < nombre.size(); j++){
+            vector<int> suivante;
+            if(i == j) continue;
+            int a = nombre[i];
+            int b = nombre[j];
+            int addition = a + b;
+            for (int k = 0; k < nombre.size(); k++) {
+                 if (k != i && k != j) {
+                 suivante.push_back(nombre[k]);
+                 }
+            
+            }
+            suivante.push_back(addition);
+            calcul(suivante);
+            suivante.clear();
+            int soustraction = a - b;
+            for (int k = 0; k < nombre.size(); k++) {
+                 if (k != i && k != j) {
+                 suivante.push_back(nombre[k]);
+                 }
+            }
+            suivante.push_back(soustraction);
+            calcul(suivante);
+            suivante.clear();
+            int multiplication = a * b;
+            for (int k = 0; k < nombre.size(); k++) {
+                 if (k != i && k != j) {
+                 suivante.push_back(nombre[k]);
+                 }
+            }
+            suivante.push_back(multiplication);
+            calcul(suivante);
+            suivante.clear();
+            if(b != 0 && a%b == 0){
+                int division = a/b;
+                for (int k = 0; k < nombre.size(); k++) {
+                 if (k != i && k != j) {
+                 suivante.push_back(nombre[k]);
+                 }
+             }
+                suivante.push_back(division);
+                calcul(suivante);
+                }
+            
+            
+            
+            
+            
+            
+        }
+    }
+}
+
+int main() {
+    int n;
+    cin>>n;
+    for(int i = 0; i < n; i++){
+        vector<int> nombre(4);
+        for(int j = 0; j < 4; j++){
+            cin>>nombre[j];
+        }
+        meilleur_resultat = 0;
+        calcul(nombre);
+        cout<<meilleur_resultat<<"\n";
+    }
+    
+    return 0;
+}
