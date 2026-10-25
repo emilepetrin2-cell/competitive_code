@@ -1,0 +1,64 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <set>
+#include <map>
+#include <unordered_map>
+#include <unordered_set>
+using namespace std;
+vector<int> salle1(10);
+vector<int> salle2(10);
+set<int> rep;
+int total = 1000;
+void etat(int index){
+    if(index == 4){
+        rep.insert(total);
+        return;
+    }
+    if(index % 2 == 0){
+        for(int i = 0; i < salle1.size(); i++){
+            int seau = salle1[i];
+            salle1.erase(salle1.begin() + i);
+            salle2.push_back(seau);
+            total -= seau;
+            etat(index + 1);
+            
+            total -= seau;
+            salle1.insert(salle1.begin() + i, seau);
+            salle2.pop_back();
+        }
+    }else{
+        for(int i = 0; i < salle2.size(); i++){
+            int seau = salle2[i];
+            salle2.erase(salle2.begin() + i);
+            salle1.push_back(seau);
+            total += seau;
+            etat(index + 1);
+            
+            total += seau;
+            salle2.insert(salle2.begin() + i, seau);
+            salle1.pop_back();
+    }
+    
+
+}
+}
+ 
+
+
+int main(){
+    freopen("backforth.in", "r", stdin);
+    freopen("backforth.out", "w", stdout);
+    for(int i = 0; i < 10; i++){
+        cin>>salle1[i];
+    }
+    for(int i = 0; i < 10; i++){
+        cin>>salle2[i];
+    }
+    etat(0);
+    cout<<rep.size();
+
+    }
+
+   
