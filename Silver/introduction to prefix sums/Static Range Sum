@@ -1,0 +1,28 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, q;
+    cin >> n >> q;
+
+    vector<long long> paire(n + 1, 0);
+
+    for (int i = 0; i < n; i++) {
+        long long val;
+        cin >> val;
+        paire[i + 1] = paire[i] + val;
+    }
+
+    while (q--) {
+        int l, r;
+        cin >> l >> r;
+        cout << paire[r] - paire[l] << "\n";
+    }
+
+    return 0;
+}
