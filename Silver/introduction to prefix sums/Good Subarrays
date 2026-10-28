@@ -1,0 +1,53 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <set>
+#include <map>
+#include <unordered_map>
+#include <unordered_set>
+#include <numeric>
+using namespace std;
+
+void resoudre(vector<int> &nombre){
+    map<long long, long long> vue;
+    vue[0] = 1;
+    long long rep = 0;
+    long long  somme = 0;
+    for(int x: nombre){
+        somme += x - 1;
+        rep += vue[somme];
+        vue[somme] ++;
+
+    }
+    cout<<rep<<"\n";
+
+}
+
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int n;
+    cin>>n;
+    for(int i = 0; i < n; i++){
+        int j;
+        cin>>j;
+        string s;
+        cin >> s;
+
+        vector<int> nombre(j, 0);
+        for(int k = 0; k < j; k++){
+            nombre[k] = s[k] - '0';
+        }
+        resoudre(nombre);
+    }
+    
+   
+    
+
+    
+    
+    return 0;
+    }
+
+   
