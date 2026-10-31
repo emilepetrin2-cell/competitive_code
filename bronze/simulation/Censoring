@@ -1,0 +1,31 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <numeric>
+using namespace std;
+
+
+
+int main(){
+    freopen("censor.in", "r", stdin);
+    freopen("censor.out", "w", stdout);
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    string mot;
+    string enlever;
+    string final;
+    cin>>mot>>enlever;
+    int taille = enlever.size();
+    for(int i = 0; i < taille -1; i++){
+        final.push_back(mot[i]);
+    }
+    for(int i = taille - 1; i < mot.size(); i++){
+        final.push_back(mot[i]);
+        if(final.ends_with(enlever)){
+            final.resize(final.length() - enlever.length());
+        }
+    }
+    cout<<final;
+    return 0;
+}
