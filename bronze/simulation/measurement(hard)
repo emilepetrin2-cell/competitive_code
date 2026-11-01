@@ -1,0 +1,85 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <numeric>
+#include <tuple>
+using namespace std;
+
+
+
+int main(){
+    int rep = 0;
+    freopen("measurement.in", "r", stdin);
+    freopen("measurement.out", "w", stdout);
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int n;
+    cin>>n;
+    int Mildred = 7;
+    int Elsie = 7;
+    int Bessie = 7;
+    vector<tuple<int,string,int>> liste;
+    for(int i = 0; i < n; i++){
+        int jour, action;
+        string nom;
+        cin>>jour>>nom>>action;
+        liste.push_back({jour,nom,action});
+    }
+    sort(liste.begin(), liste.end());
+    bool mtete = true;
+    bool etete = true;
+    bool btete = true;
+    for(auto[jour,nom,action]:liste){
+        if(nom == "Mildred"){
+            Mildred += action;
+        }else if(nom == "Elsie"){
+            Elsie += action;
+        }else{
+            Bessie += action;
+        }
+        bool mteteancien = mtete;
+        bool eteteancien = etete;
+        bool bteteancien = btete;
+        if(Mildred > Bessie && Mildred > Elsie){
+            mteteancien = true;
+            eteteancien = false;
+            bteteancien = false;
+        }else if(Elsie > Bessie && Elsie > Mildred){
+            mteteancien = false;
+            eteteancien = true;
+            bteteancien = false;
+        }else if(Bessie > Elsie && Bessie > Mildred){
+            mteteancien = false;
+            eteteancien = false;
+            bteteancien = true;
+        }else if(Mildred == Elsie && Mildred == Bessie && Bessie == Elsie ){
+            mteteancien = true;
+            bteteancien = true;
+            eteteancien = true;
+        }else if(Bessie == Elsie){
+            mteteancien = false;
+            eteteancien = true;
+            bteteancien = true;
+        }else if(Bessie == Mildred){
+            mteteancien = true;
+            eteteancien = false;
+            bteteancien = true;
+        }else if(Mildred == Elsie){
+            mteteancien = true;
+            eteteancien = true;
+            bteteancien = false;
+        }
+        if(mteteancien != mtete || etete != eteteancien || bteteancien != btete){
+            rep +=1;
+        }
+        mtete = mteteancien;
+        etete = eteteancien;
+        btete = bteteancien;
+        
+    }
+    cout<<rep<<"\n";
+
+
+    return 0;
+}
