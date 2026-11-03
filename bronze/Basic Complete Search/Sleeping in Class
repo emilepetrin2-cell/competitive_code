@@ -1,0 +1,76 @@
+#include <vector>
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+void diviser(vector<int> &diviseur, vector<int> &nombre, int total, int n) {
+    if (total == 0) {
+        cout << 0 << "\n";
+        return;
+    }
+
+
+    sort(diviseur.begin(), diviseur.end());
+
+    for (int i = 0; i < diviseur.size(); i++) {
+        int D = diviseur[i]; 
+        int somme = 0;
+        bool possible = true;
+
+        for (int j = 0; j < nombre.size(); j++) {
+            somme += nombre[j];
+            if (somme == D) {
+                somme = 0; 
+            } else if (somme > D) {
+                possible = false; 
+                break;
+            }
+        }
+
+        if (possible && somme == 0) {
+            int nb_blocs = total / D;
+            cout << n - nb_blocs << "\n";
+            return; 
+        }
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    if (!(cin >> t)) return 0;
+
+    for (int tc = 0; tc < t; tc++) {
+        int n;
+        cin >> n;
+        vector<int> nombre(n);
+        int total = 0;
+
+        for (int j = 0; j < n; j++) { 
+            cin >> nombre[j];
+            total += nombre[j];
+        }
+
+        if (total == 0) {
+            cout << 0 << "\n";
+            continue;
+        }
+
+        vector<int> diviseur;
+        for (int i = 1; i * i <= total; i++) {
+            if (total % i == 0) {
+                diviseur.push_back(i);
+                if (i != total / i) {
+                    diviseur.push_back(total / i);
+                }
+            }
+        }
+
+        diviser(diviseur, nombre, total, n);
+    }
+
+    return 0;
+}
