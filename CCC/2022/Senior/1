@@ -6,27 +6,20 @@ using namespace std;
 
 
 
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int n;
+    int rep;
     cin>>n;
-    vector<pair<double,double>> vitesse(n);
-    double rep = 0;
-    for(int i = 0; i < n; i ++){
-        cin>>vitesse[i].first;
-        cin>>vitesse[i].second;
+    for(int i = 0; i * 4 <= n; i++){
+        int reste = n - i *4;
+        if(reste % 5 == 0){
+            rep ++;
+        }
     }
-    sort(vitesse.begin(), vitesse.end());
-    for(int i = 0; i < n; i++){
-        double temps = abs(vitesse[i + 1].first - vitesse[i].first);
-        double distance = abs(vitesse[i + 1].second - vitesse[i].second);
-        double total = distance/temps;
-        rep = max(rep, total);
-    }
-    cout<<fixed<<rep;
-
-   
+    cout<<rep;
 
     return 0;
 }
