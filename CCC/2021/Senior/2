@@ -1,0 +1,44 @@
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <utility>
+using namespace std;
+
+
+
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int n,m,k;
+    cin>>m>>n>>k;
+    vector<bool> row(m, false);
+    vector<bool> col(n, false);
+    for(int i = 0; i < k; i++){
+        char type;
+        int num;
+        cin>>type>>num;
+        num --;
+        if (type == 'R') {
+            row[num] = ! row[num];
+        } else if (type == 'C') {
+            col[num] =  !col[num];
+        }
+    }
+    long long rep = 0;
+    long long  row_t = 0;
+    long long col_t = 0;
+    for(int i = 0; i < m; i++){
+        if(row[i] == true){
+            row_t ++;
+        }
+    }
+    for(int i = 0; i < n; i++){
+        if(col[i] == true){
+            col_t ++;
+        }
+    }
+    rep = row_t*(n - col_t) + col_t*(m - row_t);
+    cout<<rep;
+    return 0;
+}
