@@ -1,0 +1,54 @@
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <utility>
+#include <string>
+#include <unordered_map>
+using namespace std;
+
+
+
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int rep = 0;
+    int x;
+    cin>>x;
+    vector<pair<string,string>> ensemble(x);
+    unordered_map<string, int> nom; 
+    for(int i = 0; i < x; i++){
+        cin>>ensemble[i].first>>ensemble[i].second;
+    }
+    int y;
+    cin>>y;
+    vector<pair<string,string>> pas_ensemble(y);
+    for(int i = 0; i < y; i++){
+        cin>>pas_ensemble[i].first>>pas_ensemble[i].second;
+    }
+    int g;
+    cin>>g;
+    for(int i = 0; i < g; i++){
+        string nom1,nom2,nom3;
+        cin>>nom1>>nom2>>nom3;
+        nom[nom1] = i;
+        nom[nom2] = i;
+        nom[nom3] = i;
+    }
+    for(int i = 0; i < x; i++){
+        string nom11 = ensemble[i].first;
+        string nom22 = ensemble[i].second;
+        if(nom[nom11] != nom[nom22]){
+            rep += 1;
+        }
+    }
+    for(int i = 0; i < y; i++){
+        string nom11 = pas_ensemble[i].first;
+        string nom22 = pas_ensemble[i].second;
+        if(nom[nom11] == nom[nom22]){
+            rep += 1;
+        }
+    }
+    cout<<rep;
+    return 0;
+}
