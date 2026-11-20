@@ -1,0 +1,90 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+/*
+    ALGORITHME : DFS (Depth-First Search)
+    TYPE : Parcours en profondeur d'un graphe
+
+    UTILISATIONS :
+    - Explorer tous les sommets accessibles depuis un sommet.
+    - Trouver les composantes connexes.
+    - Vérifier si deux sommets sont connectés.
+
+    COMPLEXITÉ :
+    - Temps : O(N + M)
+    - Mémoire : O(N + M)
+      N = nombre de sommets
+      M = nombre d'arêtes
+
+    IMPORTANT :
+    - Graphe non orienté.
+    - Sommets numérotés de 1 à N.
+    - Une récursion trop profonde peut dépasser la pile.
+*/
+
+// Liste d'adjacence : adj[i] contient les voisins du sommet i.
+vector<vector<int>> adj;
+
+// Indique si un sommet a déjà été visité.
+vector<bool> visited;
+
+// Explore tous les sommets accessibles depuis node.
+void dfs(int node) {
+
+    // Marquer le sommet actuel comme visité.
+    visited[node] = true;
+
+    // Parcourir tous ses voisins.
+    for (int voisin : adj[node]) {
+
+        // Explorer uniquement les sommets non visités.
+        if (!visited[voisin]) {
+
+            // Relancer DFS pour explorer cette branche.
+            dfs(voisin);
+        }
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m;
+    cin >> n >> m;
+
+    // Créer les listes d'adjacence et initialiser visited.
+    adj.resize(n + 1);
+    visited.assign(n + 1, false);
+
+    // Lire les M arêtes du graphe.
+    for (int i = 0; i < m; i++) {
+        int u, v;
+        cin >> u >> v;
+
+        // Ajouter les deux directions (graphe non orienté).
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    // Compter les composantes connexes.
+    int composantes = 0;
+
+    // Examiner chaque sommet du graphe.
+    for (int i = 1; i <= n; i++) {
+
+        // Un sommet non visité indique une nouvelle composante.
+        if (!visited[i]) {
+
+            // Explorer entièrement cette composante.
+            dfs(i);
+
+            // Augmenter le nombre de composantes.
+            composantes++;
+        }
+    }
+
+    cout << composantes << "\n";
+
+    return 0;
+}
