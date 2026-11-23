@@ -1,41 +1,41 @@
-#include <vector>
 #include <iostream>
-#include <algorithm>
-#include <utility>
 #include <string>
-#include <unordered_map>
+#include <vector>
+
 using namespace std;
-vector<vector<int>> a(5 + 1);
-vector<bool> visiter(6, false);
-int total = 0;
-void dfs(int nodes){
-    visiter[nodes] = true;
-    for(int voisins: a[nodes]){
-        if(!visiter[voisins]){
-            dfs(voisins);
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m;
+    if (!(cin >> n >> m)) return 0;
+
+    vector<string> liste(n);
+    for (int i = 0; i < n; i++) {
+        cin >> liste[i];
+    }
+
+
+  
+for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m - 1; j++) {
+        if (liste[i][j] == 'x' && liste[i][j + 1] == 'x') {
+            cout << "Faucet " << i + 1 << "\n";
+            return 0;
         }
     }
 }
 
 
-
-int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    
-    a[1].push_back(2);
-    a[2].push_back(1);
-    a[3].push_back(4);
-    a[4].push_back(3);
-    
-    for(int i = 1; i < 6; i++){
-        if(!visiter[i]){
-            dfs(i);
-            total += 1;
+for (int i = 0; i < n - 1; i++) {
+    for (int j = 0; j < m; j++) {
+        if (liste[i][j] == 'x' && liste[i + 1][j] == 'x') {
+            cout << "Drain " << j + 1 << "\n";
+            return 0;
         }
     }
+}
 
-    cout<<total;
-    
     return 0;
 }

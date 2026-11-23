@@ -1,0 +1,58 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <set>
+#include <map>
+#include <unordered_map>
+#include <unordered_set>
+using namespace std;
+
+int total = 0;
+int n,m;
+vector<vector<int>> graphe;
+vector<bool> visiter;
+
+void dfs(int nodes){
+    visiter[nodes] = true;
+    for(int voisin: graphe[nodes]){
+        if(!visiter[voisin]){
+            dfs(voisin);
+        }
+    }
+}
+
+
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin>>n>>m;
+    graphe.resize(n + 1);
+    visiter.assign(n + 1, false);
+    vector<int> groupe;
+    for(int i = 1; i <= m; i++){
+        int a,b;
+        cin>>a>>b;
+        graphe[a].push_back(b);
+        graphe[b].push_back(a);
+    }
+    for(int i = 1; i <=n; i++){
+        if(!visiter[i]){
+            dfs(i);
+            total += 1;
+            groupe.push_back(i);
+        }
+    }
+    groupe.resize(total);
+    cout<<total - 1<<"\n";
+    
+    for(int i = 0; i < total - 1; i++){
+        cout<<groupe[i]<<" "<<groupe[i + 1]<<"\n";
+    }
+    
+    
+    
+    
+    
+
+    }
