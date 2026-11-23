@@ -1,41 +1,64 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include <algorithm>
 using namespace std;
+vector<vector<int>> graphe;
+vector<bool> etat;
+int total = 0;
+struct cow{
+    int x,y,p;
+};
+
+
+void dfs(int node){
+    
+    etat[node] = true;
+    total += 1;
+    for(int voisins: graphe[node]){
+        if(!etat[voisins]){
+            
+            dfs(voisins);
+        }
+    }
+}
 
 int main() {
+    freopen("moocast.in", "r", stdin);
+    freopen("moocast.out", "w", stdout);
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-
-    int n, m;
-    if (!(cin >> n >> m)) return 0;
-
-    vector<string> liste(n);
-    for (int i = 0; i < n; i++) {
-        cin >> liste[i];
+    int rep = 0;
+    int n;
+    cin>>n;
+    vector<cow> stat(n);
+    graphe.resize(n);
+    for(int i = 0; i < n; i++){
+        cin>>stat[i].x>>stat[i].y>>stat[i].p;
     }
-
-
-  
-for (int i = 0; i < n; i++) {
-    for (int j = 0; j < m - 1; j++) {
-        if (liste[i][j] == 'x' && liste[i][j + 1] == 'x') {
-            cout << "Faucet " << i + 1 << "\n";
-            return 0;
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            if(i == j) continue;
+            long long dx = stat[i].x - stat[j].x;
+            long long dy = stat[i].y - stat[j].y;
+            long long d_total = dx * dx + dy * dy;
+            long long p_total =  1LL * stat[i].p * stat[i].p;
+            if(p_total >= d_total){
+                graphe[i].push_back(j);
+            }
         }
     }
-}
-
-
-for (int i = 0; i < n - 1; i++) {
-    for (int j = 0; j < m; j++) {
-        if (liste[i][j] == 'x' && liste[i + 1][j] == 'x') {
-            cout << "Drain " << j + 1 << "\n";
-            return 0;
-        }
+    etat.assign(n, false);
+    for(int i = 0; i < n; i++){
+        dfs(i);
+        rep = max(total, rep);
+        etat.assign(n, false);
+        total = 0;
     }
-}
+    cout<<rep;
+
+
+    
 
     return 0;
 }
