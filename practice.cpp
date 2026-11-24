@@ -1,61 +1,75 @@
 #include <iostream>
-#include <string>
 #include <vector>
+#include <stack>
 #include <algorithm>
+#include <cstdio>
+#include <climits>
+
 using namespace std;
 vector<vector<int>> graphe;
 vector<bool> etat;
-int total = 0;
-struct cow{
-    int x,y,p;
+int maxx = 0, minx = 0, maxy = 0, miny = 0;
+struct coordo{
+    int x,y;
 };
-
-
-void dfs(int node){
-    
-    etat[node] = true;
-    total += 1;
-    for(int voisins: graphe[node]){
-        if(!etat[voisins]){
-            
-            dfs(voisins);
+vector<coordo> vache;
+void dfs(int debut){
+    stack<int> pile;
+    pile.push(debut);
+    etat[debut] = true;
+    maxx = vache[debut].x;
+    minx = vache[debut].x;
+    maxy = vache[debut].y;
+    miny = vache[debut].y;
+    while(!pile.empty()){
+        int u = pile.top();
+        pile.pop();
+        for(int voisins: graphe[u]){
+            if(!etat[voisins]){
+                etat[voisins] = true;
+                pile.push(voisins);
+                int xx = vache[voisins].x;
+                int yy = vache[voisins].y;
+                maxx = max(maxx, xx);
+                minx = min(minx, xx);
+                maxy = max(maxy, yy);
+                miny = min(miny, yy);
+            }
         }
     }
 }
 
+
 int main() {
-    freopen("moocast.in", "r", stdin);
-    freopen("moocast.out", "w", stdout);
+    long long rep = LLONG_MAX;
+    freopen("fenceplan.in", "r", stdin);
+    freopen("fenceplan.out", "w", stdout);
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int rep = 0;
-    int n;
-    cin>>n;
-    vector<cow> stat(n);
-    graphe.resize(n);
-    for(int i = 0; i < n; i++){
-        cin>>stat[i].x>>stat[i].y>>stat[i].p;
+    int n,m;
+    cin>>n>>m;
+    vache.resize(n + 1);
+    for(int i = 1; i <= n; i++){
+        cin>>vache[i].x>>vache[i].y;
     }
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < n; j++){
-            if(i == j) continue;
-            long long dx = stat[i].x - stat[j].x;
-            long long dy = stat[i].y - stat[j].y;
-            long long d_total = dx * dx + dy * dy;
-            long long p_total =  1LL * stat[i].p * stat[i].p;
-            if(p_total >= d_total){
-                graphe[i].push_back(j);
-            }
+    graphe.resize(n + 1);
+    etat.assign(n + 1, false);
+    for(int i = 1; i <= m; i++){
+        int a,b;
+        cin>>a>>b;
+        graphe[a].push_back(b);
+        graphe[b].push_back(a);
+    }
+    for(int i = 1; i <= n; i++){
+        if(!etat[i]){
+            dfs(i);
+            long long perimetre = 2 * (maxx - minx) + 2*(maxy - miny);
+            rep = min(rep, perimetre);
         }
     }
-    etat.assign(n, false);
-    for(int i = 0; i < n; i++){
-        dfs(i);
-        rep = max(total, rep);
-        etat.assign(n, false);
-        total = 0;
-    }
     cout<<rep;
+
+    
 
 
     

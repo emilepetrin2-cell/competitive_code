@@ -88,3 +88,24 @@ int main() {
 
     return 0;
 }
+
+
+
+
+
+///version itératif
+void dfs(int depart){
+    stack<int> pile;
+    pile.push(depart);
+    visite[depart] = true;
+    while(!pile.empty()){
+        int u = pile.top();
+        pile.pop();
+        for(int v : graphe[u]){
+            if(!visite[v]){
+                visite[v] = true;
+                pile.push(V);
+            }
+        }
+    }
+}
